@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Post Editor</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap">
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <aside class="side">
+    <div class="side__head">
+      <h1>Posts</h1>
+      <button class="btn btn--primary" id="new-post">+ New post</button>
+    </div>
+    <nav class="tree" id="tree" aria-label="Posts"></nav>
+    <div class="side__foot">
+      <button class="btn btn--ghost" id="edit-about">About page</button>
+      <button class="btn btn--ghost" id="edit-categories">Edit categories</button>
+      <button class="btn btn--ghost" id="edit-background">Background</button>
+      <a class="btn btn--ghost" href="/" target="_blank" rel="noopener">View site ↗</a>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <span class="status" id="status">Loading…</span>
+      <button class="btn btn--primary" id="save" disabled>Save <kbd>Ctrl S</kbd></button>
+    </header>
+    <div class="pane" id="pane"></div>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="admin.js"></script>
+</body>
+</html>

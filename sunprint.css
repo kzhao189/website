@@ -1,0 +1,112 @@
+/* ---------- Sunprint (experiment) ----------
+   Letters print like objects laid on cyanotype paper: left white where they
+   blocked the sun, with softly fibrous edges, hairlines that let a little
+   light through, a faint bleed where light crept under them, and uneven
+   exposure and paper tooth inside. Filters live in the inline
+   <svg class="sunprint-defs"> on each page. Remove this stylesheet's <link>
+   to go back. */
+
+/* Cyanotype paper: Prussian blue with the type left white, as if unexposed.
+   The texture is drawn at fixed tile sizes (never stretched to the window)
+   and every noise is round, so nothing streaks at any aspect ratio:
+   fine paper tooth, plus soft blotches where the coating took deeper or
+   paler. */
+:root {
+  /* Defaults; site.css (set from the editor's Background panel) overrides these */
+  --cyan-deep: #031a42;
+  --cyan: #052459;
+  --paper-white: #f4f1e8;
+
+  --bg: var(--cyan);
+  --fg: var(--paper-white);
+  /* Opaque, so the type filters can firm up edges without brightening it */
+  --muted: color-mix(in srgb, var(--paper-white) 70%, var(--cyan));
+  --line: rgb(244 241 232 / 0.22);
+  --tile-bg: var(--cyan-deep);
+  --sheet: var(--bg);
+  color-scheme: dark;
+
+  /* Each tile's filter region is exactly the tile, so the stitched noise
+     repeats without seams */
+  --tooth: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='256' height='256'><filter id='f' x='0' y='0' width='1' height='1' color-interpolation-filters='sRGB'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' seed='2' stitchTiles='stitch' result='n'/><feColorMatrix in='n' values='0 0 0 0 0.94  0 0 0 0 0.95  0 0 0 0 0.93  0.13 0 0 0 -0.065' result='lift'/><feColorMatrix in='n' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -0.55 0 0 0 0.275' result='press'/><feMerge><feMergeNode in='press'/><feMergeNode in='lift'/></feMerge></filter><rect width='256' height='256' filter='url(%23f)'/></svg>");
+  --mottle: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='1000' height='1000'><filter id='f' x='0' y='0' width='1' height='1' color-interpolation-filters='sRGB'><feTurbulence type='fractalNoise' baseFrequency='0.004' numOctaves='4' seed='5' stitchTiles='stitch' result='n'/><feColorMatrix in='n' values='0 0 0 0 0.96  0 0 0 0 0.95  0 0 0 0 0.91  0.19 0 0 0 -0.095' result='pale'/><feColorMatrix in='n' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -0.62 0 0 0 0.31' result='deep'/><feMerge><feMergeNode in='deep'/><feMergeNode in='pale'/></feMerge></filter><rect width='1000' height='1000' filter='url(%23f)'/></svg>");
+  --paper-texture:
+    var(--tooth) 0 0 / 256px 256px,
+    var(--mottle) 0 0 / 1000px 1000px;
+  /* Page backing: the fern print's own paper, patches of its plain
+     background blended into a seamless tile, so the photo blends in, with
+     the fine paper tooth over it (the fern print sits above the tooth) */
+  --paper:
+    var(--tooth) 0 0 / 256px 256px,
+    url("media/paper-tile.webp") 0 0 / 800px 800px,
+    var(--cyan);
+  /* Laid over the scans in "color" blend mode: they keep their light and
+     shade but take the hue and saturation set in the editor (site.css) */
+  --tint: linear-gradient(var(--cyan), var(--cyan));
+}
+
+/* Same fixed backing on every layer, so the work sheet slides over the
+   intro with no seam */
+body,
+.work,
+.site-footer,
+.project {
+  background: var(--tint), var(--paper);
+  background-attachment: fixed;
+  background-blend-mode: color, normal;
+}
+/* Front and About pages: a photographed fern print fixed to the paper at
+   top right (edges feathered in the image), so the content scrolls over it */
+body:has(> .work, > .about),
+body:has(> .work, > .about) > :is(.work, .site-footer) {
+  background:
+    var(--tint),
+    url("media/fern.webp") right 0 top 24px / min(57vw, 900px) auto no-repeat,
+    var(--paper);
+  background-attachment: fixed;
+  background-blend-mode: color, normal;
+}
+
+/* Bars: the same paper, dimmed and frosted */
+.masthead__bar,
+.page-bar {
+  background:
+    var(--paper-texture),
+    color-mix(in srgb, var(--cyan-deep) 80%, transparent);
+  background-attachment: fixed;
+}
+.media { background: var(--cyan-deep); }
+.card__cap {
+  background: linear-gradient(to top, color-mix(in srgb, var(--cyan-deep) 95%, transparent), color-mix(in srgb, var(--cyan-deep) 50%, transparent) 55%, transparent);
+}
+/* The folded corner shows the paper's unprinted back */
+.dog-ear__crease { stop-color: color-mix(in srgb, #d9d6cc 82%, var(--cyan)); }
+.dog-ear__tip { stop-color: color-mix(in srgb, var(--paper-white) 88%, var(--cyan)); }
+.chip + .chip::before { border-left-color: var(--line); }
+::selection { background: var(--paper-white); color: var(--cyan-deep); }
+
+.sunprint-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+/* Display type: full treatment */
+.intro__name,
+.about__title,
+.project__title,
+.block--heading {
+  filter: url(#sunprint);
+}
+
+/* Smaller type: a lighter touch so it stays readable. Running text (bios,
+   project paragraphs, captions) is left clean. */
+.page-bar__name,
+.chip,
+.site-nav a,
+.about__links a,
+.card__title,
+.project__info {
+  filter: url(#sunprint-soft);
+}

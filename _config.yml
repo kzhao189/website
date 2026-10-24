@@ -1,0 +1,4 @@
+# GitHub Pages: publish the site only, not the local editor or its sources.
+exclude:
+  - admin
+  - content

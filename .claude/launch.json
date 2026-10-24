@@ -1,0 +1,43 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "site",
+      "runtimeExecutable": "python",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "5173"
+      ],
+      "port": 5173
+    },
+    {
+      "name": "editor",
+      "runtimeExecutable": "python",
+      "runtimeArgs": [
+        "admin/server.py"
+      ],
+      "port": 5174
+    },
+    {
+      "name": "site-alt",
+      "runtimeExecutable": "python",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "5175"
+      ],
+      "port": 5175
+    },
+    {
+      "name": "site-cyano",
+      "runtimeExecutable": "python",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "5176"
+      ],
+      "port": 5176
+    }
+  ]
+}

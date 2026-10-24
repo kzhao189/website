@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Katie Zhao</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="description" content="Katie Zhao: game interaction + XR designer, developing immersive experiences with user-centered, artistic flair.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="sunprint.css">
+  <link rel="stylesheet" href="site.css">
+</head>
+<body>
+  <!-- Sunprint filters for type (see sunprint.css): fibrous, softened edges,
+       a faint bleed and glow where light crept under, and uneven exposure
+       with paper tooth inside. All noise is round, so nothing streaks. -->
+  <svg class="sunprint-defs" aria-hidden="true" focusable="false">
+    <filter id="sunprint" x="-15%" y="-35%" width="130%" height="170%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" seed="4" result="fibre"/>
+      <feDisplacementMap in="SourceGraphic" in2="fibre" scale="1.2" xChannelSelector="R" yChannelSelector="G" result="rough"/>
+      <feGaussianBlur in="rough" stdDeviation="0.6" result="soft"/>
+      <feComponentTransfer in="soft" result="type"><feFuncA type="table" tableValues="0 0.05 0.5 0.9 1 1"/></feComponentTransfer>
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1.3" result="spread"/>
+      <feComponentTransfer in="spread" result="bleed"><feFuncA type="linear" slope="0.25"/></feComponentTransfer>
+      <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="wide"/>
+      <feOffset in="wide" dx="0.6" dy="1.2" result="cast"/>
+      <feComponentTransfer in="cast" result="glow"><feFuncA type="linear" slope="0.12"/></feComponentTransfer>
+      <feTurbulence type="fractalNoise" baseFrequency="0.025" numOctaves="3" seed="11" result="wash"/>
+      <feColorMatrix in="wash" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0.8 0 0 0 0.6" result="exposure"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="7" result="grain"/>
+      <feColorMatrix in="grain" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0.6 0 0 0 0.72" result="tooth"/>
+      <feComposite in="type" in2="exposure" operator="in" result="exposed"/>
+      <feComposite in="exposed" in2="tooth" operator="in" result="print"/>
+      <feMerge><feMergeNode in="glow"/><feMergeNode in="bleed"/><feMergeNode in="print"/></feMerge>
+    </filter>
+    <filter id="sunprint-soft" x="-5%" y="-25%" width="110%" height="150%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="1" numOctaves="1" seed="5" result="fibre"/>
+      <feDisplacementMap in="SourceGraphic" in2="fibre" scale="0.3" xChannelSelector="R" yChannelSelector="G" result="rough"/>
+      <feGaussianBlur in="rough" stdDeviation="0.15" result="soft"/>
+      <feComponentTransfer in="soft" result="type"><feFuncA type="linear" slope="1.15" intercept="-0.02"/></feComponentTransfer>
+      <feGaussianBlur in="SourceGraphic" stdDeviation="1" result="spread"/>
+      <feComponentTransfer in="spread" result="bleed"><feFuncA type="linear" slope="0.12"/></feComponentTransfer>
+      <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="17" result="wash"/>
+      <feColorMatrix in="wash" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0.3 0 0 0 0.85" result="exposure"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="1" seed="23" result="grain"/>
+      <feColorMatrix in="grain" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0.3 0 0 0 0.86" result="tooth"/>
+      <feComposite in="type" in2="exposure" operator="in" result="exposed"/>
+      <feComposite in="exposed" in2="tooth" operator="in" result="print"/>
+      <feMerge><feMergeNode in="bleed"/><feMergeNode in="print"/></feMerge>
+    </filter>
+  </svg>
+  <!-- Back layer: description + links. The work sheet slides over it. -->
+  <header class="intro" id="intro">
+    <div class="intro__inner">
+      <!-- Holds the name's place; the name itself lives in the masthead -->
+      <div class="intro__name-slot" id="name-slot" aria-hidden="true"></div>
+      <div class="intro__row" id="intro-row">
+        <div class="intro__text">
+          <p class="intro__bio">
+            Interaction designer, usually on games. Multimedia artist and casual botanist.
+          </p>
+          <!-- Category filters, filled from projects.js -->
+          <div class="filters" id="filters" role="group" aria-label="Categories"></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Front layer: name, nav and bar. The name fades with the intro; the bar fades in carrying the filters. -->
+  <div class="masthead" id="masthead">
+    <!-- Once docked, the bar carries the category filters in place of the name -->
+    <div class="masthead__bar" id="bar">
+      <div class="filters filters--bar" id="bar-filters" role="group" aria-label="Categories" inert></div>
+    </div>
+    <!-- Always top right; the bar fades in behind it as the name docks -->
+    <nav class="site-nav" aria-label="Site">
+      <a href="#work" data-go="work">Work</a>
+      <a href="about.html">About</a>
+    </nav>
+    <div class="name-wrap" id="name-wrap">
+      <h1 class="intro__name">Katie Zhao</h1>
+    </div>
+  </div>
+
+  <main class="work" id="work" aria-label="Projects">  </main>
+
+  <!-- Project view: overlay rendered from projects.js -->
+  <article class="project" id="project" hidden aria-labelledby="project-title">
+    <!-- Same docked bar as the gallery; the name and Work both lead back to it -->
+    <header class="page-bar">
+      <a class="page-bar__name" id="back" href="#/" data-home>Katie Zhao<span class="page-bar__back">(<span aria-hidden="true">&larr;</span> back)</span></a>
+      <nav class="site-nav site-nav--static" aria-label="Site">
+        <a href="#/" data-home>Work</a>
+        <a href="about.html">About</a>
+      </nav>
+    </header>
+    <div class="project__head">
+      <div class="project__media media" id="project-media"></div>
+      <div class="project__meta">
+        <div class="project__lead">
+          <h2 class="project__title" id="project-title"></h2>
+          <p class="project__intro" id="project-intro" hidden></p>
+        </div>
+        <div class="project__side">
+          <dl class="project__info" id="project-info"></dl>
+          <a class="project__link" id="project-link" target="_blank" rel="noopener" hidden></a>
+        </div>
+      </div>
+    </div>
+    <div class="project__body" id="project-body"></div>
+  </article>
+
+  <script src="projects.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

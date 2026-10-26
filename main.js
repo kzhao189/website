@@ -50,6 +50,18 @@
 
   const clamp = (v, lo = 0, hi = 1) => Math.min(hi, Math.max(lo, v));
 
+  // Moving focus after a tap shouldn't draw the keyboard ring (Safari does);
+  // keyboard users still get it.
+  let usingKeys = false;
+  addEventListener("keydown", () => (usingKeys = true), true);
+  addEventListener("pointerdown", () => (usingKeys = false), true);
+  function moveFocus(el) {
+    el.focus({ preventScroll: true, focusVisible: usingKeys });
+    if (usingKeys) return;
+    el.classList.add("no-ring");
+    el.addEventListener("blur", () => el.classList.remove("no-ring"), { once: true });
+  }
+
   function h(tag, cls, text) {
     const n = document.createElement(tag);
     if (cls) n.className = cls;
@@ -806,7 +818,7 @@
 
     view.getAnimations().forEach((a) => a.cancel());
     view.classList.add("is-shown");
-    backLink.focus({ preventScroll: true });
+    moveFocus(backLink);
     busy = false;
   }
 
@@ -847,7 +859,7 @@
       tile.classList.add("is-visited");
       foldEar(tile);
     }
-    if (tile) tile.focus({ preventScroll: true });
+    if (tile) moveFocus(tile);
     busy = false;
   }
 

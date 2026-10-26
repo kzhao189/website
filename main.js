@@ -39,6 +39,11 @@
     try { localStorage.setItem(VISITED_KEY, JSON.stringify([...visited])); } catch {}
   }
 
+  // Projects have clean URLs (/crystal-commanders): admin/server.py writes a
+  // copy of this page per project, and the router reads the slug from the path.
+  const siteRoot = new URL("./", location.href).pathname;
+  const projectUrl = (slug) => siteRoot + slug;
+
   let current = null;         // slug of the open project
   let openedFromGrid = false; // true when we pushed the project entry ourselves
   let busy = false;
@@ -131,7 +136,7 @@
 
   function tileLink(p, cls) {
     const a = h("a", `tile ${cls}`);
-    a.href = `#/p/${p.slug}`;
+    a.href = projectUrl(p.slug);
     a.dataset.slug = p.slug;
     return a;
   }
@@ -848,13 +853,13 @@
 
   /* ---------- Routing ---------- */
 
-  const parseHash = () => {
-    const m = location.hash.match(/^#\/p\/([\w-]+)/);
-    return m ? m[1] : null;
+  const parseRoute = () => {
+    const m = location.pathname.slice(siteRoot.length).match(/^([\w-]+?)(?:\.html)?$/);
+    return m && m[1] !== "index" ? m[1] : null;
   };
 
   function route(animate) {
-    const slug = parseHash();
+    const slug = parseRoute();
     if (slug && slug !== current) openProject(slug, animate);
     else if (!slug && current) closeProject(animate);
   }
@@ -866,7 +871,7 @@
       openedFromGrid = false;
       history.back();
     } else {
-      history.replaceState(null, "", location.pathname + location.search);
+      history.replaceState(null, "", siteRoot + location.search);
       route(true);
     }
   }
@@ -875,7 +880,12 @@
     const tile = e.target.closest(".tile");
     if (!tile) return;
     if (busy) { e.preventDefault(); return; }
-    if (!(e.metaKey || e.ctrlKey || e.shiftKey)) openedFromGrid = true;
+    // Modified clicks open the project's own page in a new tab or window.
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    e.preventDefault();
+    openedFromGrid = true;
+    history.pushState(null, "", tile.href);
+    route(true);
   });
 
   view.addEventListener("click", (e) => {
@@ -888,12 +898,19 @@
     if (e.key === "Escape" && current && !busy) goHome();
   });
 
-  addEventListener("hashchange", () => {
-    if (!parseHash()) openedFromGrid = false;
+  addEventListener("popstate", () => {
+    if (!parseRoute()) openedFromGrid = false;
     route(true);
   });
 
   /* ---------- Init ---------- */
+
+  // Old links (/#/p/crystal-commanders) and /crystal-commanders.html move to the clean URL.
+  const legacy = location.hash.match(/^#\/p\/([\w-]+)/);
+  if (legacy) history.replaceState(null, "", projectUrl(legacy[1]) + location.search);
+  else if (/\.html$/.test(location.pathname) && parseRoute()) {
+    history.replaceState(null, "", projectUrl(parseRoute()) + location.search + location.hash);
+  }
 
   renderWork();
   measureMasthead();

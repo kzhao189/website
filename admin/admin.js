@@ -698,7 +698,7 @@
     return [
       el("div", { class: "pane__title" },
         heading,
-        !post.draft && el("a", { class: "btn btn--ghost", href: `/#/p/${post.slug}`, target: "_blank", rel: "noopener", title: "Save first to see your latest changes" }, "View ↗"),
+        !post.draft && el("a", { class: "btn btn--ghost", href: `/${post.slug}`, target: "_blank", rel: "noopener", title: "Save first to see your latest changes" }, "View ↗"),
         el("button", { class: "btn btn--danger", type: "button", onclick: () => {
           if (!confirm(`Delete “${post.title || "Untitled"}”? This can't be undone after you save.`)) return;
           data.posts.splice(data.posts.indexOf(post), 1);
@@ -712,7 +712,7 @@
           el("div", { class: "span-2" }, field("Title", title)),
           field("Category", tierSelect, "The home page filter that shows this post"),
           field("Date", textInput(post, "date", { placeholder: "e.g. 03 / 2026" })),
-          field("URL", slugInput, `/#/p/${post.slug}`),
+          field("URL", slugInput, `/${post.slug}`),
           el("div", { class: "field" },
             el("span", {}, "Visibility"),
             el("label", { class: "check" },

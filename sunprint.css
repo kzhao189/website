@@ -56,15 +56,18 @@ body,
   background-blend-mode: color, normal;
 }
 /* Front and About pages: a photographed fern print fixed to the paper at
-   top right (edges feathered in the image), so the content scrolls over it */
+   top right, so the content scrolls over it. fern-print.svg is fern.webp
+   with its paper cut away; it sits above the tint so the fern keeps its own
+   blue while the paper takes the editor's colour. */
 body:has(> .work, > .about),
 body:has(> .work, > .about) > :is(.work, .site-footer) {
   background:
+    url("media/fern-print.svg") right 0 top 24px / min(57vw, 900px) auto no-repeat,
     var(--tint),
-    url("media/fern.webp") right 0 top 24px / min(57vw, 900px) auto no-repeat,
     var(--paper);
   background-attachment: fixed;
-  background-blend-mode: color, normal;
+  /* fern, tint, then the paper's tooth / tile / cyan as before */
+  background-blend-mode: normal, color, color, normal, color;
 }
 
 /* Bars: the same paper, dimmed and frosted */

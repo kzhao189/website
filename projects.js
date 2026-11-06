@@ -72,15 +72,23 @@ window.PROJECTS = [
     "body": [
       {
         "type": "heading",
+        "text": "Design Goals"
+      },
+      {
+        "type": "text",
+        "text": "**Educational**\nGameplay simulates a real fly's interactions with a flytrap, and players should walk away with a better understanding of its biology and mechanics. \n\n**Competitive but cooperative**\nNature is filled with competition but also collaboration. Players must work with others to keep the trap open but also extract as many resources as possible.\n\n**Fast-paced and easy to learn**\nShort and snappy (<3 min) with easily defined mechanics and goal. Fun for players of all ages!\n"
+      },
+      {
+        "type": "heading",
         "text": "Fabrication"
       },
       {
         "type": "text",
-        "text": "Material choice was important for a game with high player traffic. The faux pink alligator leather made it easy to wipe down the installation, and to keep players' limbs intact, I added pool noodle padding on the edges and increased the height of the hinge. Our pincers were also printed with an iridescent, beetle-shell like filament.\n\nThe entire installation can be broken down into a large suitcase, and the pink pleather can be peeled back easily to debug flex sensors and their wiring."
+        "text": "Material choice was important for a game with high player traffic - the faux pink alligator leather made it easy to wipe down. To keep players' limbs intact, I added pool noodle padding on the edges and increased the height of the hinge. Our pincers were also printed with an iridescent, beetle-shell like filament.\n\nFlex sensors (the trigger hairs) detect bending and spring back when crumpled.\n\nThe entire installation can be broken down into a large suitcase, and the pink pleather can be peeled back easily to debug flex sensors and their wiring."
       },
       {
         "type": "image",
-        "src": "media/snaptrap-02.jpg",
+        "src": "media/img_8567.jpg",
         "alt": "An early Snaptrap build",
         "caption": "one of our earliest builds"
       },
@@ -90,11 +98,11 @@ window.PROJECTS = [
       },
       {
         "type": "text",
-        "text": "Real venus flytraps attract flies with nectar and snap shut once two hairs are triggered in succession. The delicate balance between collaboration and competition led to fascinating group dynamics. Triggering one hair makes it so if another hair is touched, everyone loses. Players as a group had to decide if it was worth it or not to continue grabbing nectar.\n\nThe physical nature and open-ended rules of our game led to some really interesting emergent gameplay and strategies. Some players hoarded nectar on their side, some stole from others, and bolder ones fought other players for preferred pieces.\n\nOur pincer shapes also left a lot to personal preference. Players found creative ways to use their \"jaws\"!"
+        "text": "Real venus flytraps attract flies with nectar and snap shut once two hairs are triggered in succession. Most players didn't know that!\n\nThe delicate balance between collaboration and competition led to fascinating group dynamics. Triggering one hair makes it so if another hair is touched, everyone loses. Players as a group had to decide if it was worth it or not to continue grabbing nectar.\n\nThe physical nature and open-ended rules of our game led to some interesting emergent gameplay and strategies. Some players hoarded nectar on their side, some stole from others, and bolder ones fought other players for preferred pieces.\n\nOur pincer shapes also gave players creative ways to use their \"jaws\"!"
       },
       {
         "type": "heading",
-        "text": "Gameplay + Progress"
+        "text": "Gameplay + Progress Pics"
       },
       {
         "type": "video",
@@ -125,6 +133,16 @@ window.PROJECTS = [
         "caption": ""
       },
       {
+        "type": "image",
+        "src": "media/img_8360.jpg",
+        "caption": ""
+      },
+      {
+        "type": "image",
+        "src": "media/frame-6.jpg",
+        "caption": ""
+      },
+      {
         "type": "divider"
       },
       {
@@ -143,11 +161,11 @@ window.PROJECTS = [
       },
       {
         "label": "Tools",
-        "value": "Hands, one massive bandsaw, bartering, Blender"
+        "value": "Woodworking, 3D printing, bartering, Blender"
       }
     ],
     "posterTime": 0.89,
-    "intro": "Risk life and limb to grab nectar from the jaws of a massive venus flytrap. \n**alt.ctrl GDC 2026** finalist. Also exhibited at **Maker Faire LA** and **OC**. \nOver 1000 bugs trapped! <- real statistic",
+    "intro": "Risk life and limb to grab nectar from the jaws of a massive venus flytrap while avoiding touching the trigger hairs inside. \n**alt.ctrl GDC 2026** finalist. Also exhibited at **Maker Faire LA** and **OC**. \nOver 1000 bugs trapped! <- real statistic",
     "link": "https://tinyurl.com/flytrapgame",
     "linkLabel": "Devlog"
   },
@@ -167,7 +185,7 @@ window.PROJECTS = [
       },
       {
         "type": "text",
-        "text": "Every good game has a beloved fishing minigame. I've loved playing *Stardew Valley* and *Animal Crossing*, but I'd always wished for the chance to show off flashy combos and strategy while reeling in my catches.\n\nI looked toward games like *League of Legends* and *Hearthstone* for their cohesive magical visual style, while splashing a bit of *Animal Crossing*'s coziness in the form of softer, inviting shapes and friendly colors.\n\n**Visuals combine the nautical and arcana, with the rugged, freeform shapes of sailing motifs mixed with the graceful and geometric forms of the arcane.** Accents are gold, with small pops of saturated highlights. Small details of trim, dangling jewelry or ropes give a witchy energy."
+        "text": "Every good game has a beloved fishing minigame. I've loved playing *Stardew Valley* and *Animal Crossing*, but I'd always wished for the chance to show off flashy combos and strategy while reeling in my catches.\n\nI was inspired by the magical visual style of *League of Legends* and *Hearthstone*, while splashing a bit of *Animal Crossing*'s coziness in the form of softer, inviting shapes and friendly colors.\n\n**Visuals combine the nautical and arcana, with the rugged, freeform shapes of sailing motifs mixed with the graceful and geometric forms of the arcane.** Accents are gold, with small pops of saturated highlights. Small details of trim, dangling jewelry or ropes give a witchy energy."
       },
       {
         "type": "heading",

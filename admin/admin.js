@@ -550,9 +550,55 @@
         body = [textInput(b, "text", { rows: 6, placeholder: "Write here. Leave a blank line between paragraphs. **bold**, *italic*" })];
     }
 
-    return el("div", { class: `block block--${b.type}` },
-      el("div", { class: "block__bar" },
-        el("span", {}, BLOCKS[b.type] || b.type),
+    // Drag a block by its bar to reorder. The block only becomes draggable while
+    // the bar is held, so text inside the fields can still be selected.
+    const after = (e) => {
+      const r = node.getBoundingClientRect();
+      return e.clientY > r.top + r.height / 2;
+    };
+    const node = el("div", {
+      class: `block block--${b.type}`,
+      ondragstart: (e) => {
+        if (e.target !== node) return;
+        draggedBlock = b;
+        e.dataTransfer.effectAllowed = "move";
+        e.dataTransfer.setData("text/plain", BLOCKS[b.type] || b.type);
+        requestAnimationFrame(() => node.classList.add("is-dragging"));
+      },
+      ondragend: () => {
+        draggedBlock = null;
+        node.draggable = false;
+        node.classList.remove("is-dragging");
+        clearBlockMarks();
+      },
+      ondragover: (e) => {
+        if (!draggedBlock || !post.body.includes(draggedBlock)) return;
+        e.preventDefault();
+        e.stopPropagation();
+        e.dataTransfer.dropEffect = "move";
+        clearBlockMarks();
+        if (draggedBlock !== b) node.classList.add(after(e) ? "drop-after" : "drop-before");
+      },
+      ondrop: (e) => {
+        if (!draggedBlock || !post.body.includes(draggedBlock)) return;
+        e.preventDefault();
+        e.stopPropagation();
+        const moving = draggedBlock;
+        draggedBlock = null;
+        clearBlockMarks();
+        if (moving === b) return;
+        post.body.splice(post.body.indexOf(moving), 1);
+        post.body.splice(post.body.indexOf(b) + (after(e) ? 1 : 0), 0, moving);
+        restructure();
+      },
+    },
+      el("div", {
+        class: "block__bar",
+        title: "Drag to reorder",
+        onmousedown: (e) => { if (!e.target.closest("button")) node.draggable = true; },
+        onmouseup: () => { node.draggable = false; },
+      },
+        el("span", {}, el("span", { class: "block__grip", "aria-hidden": "true" }, "⋮⋮"), BLOCKS[b.type] || b.type),
         el("button", { class: "icon-btn", type: "button", title: "Move up", disabled: i === 0, onclick: () => { move(post.body, i, i - 1); restructure(); } }, "↑"),
         el("button", { class: "icon-btn", type: "button", title: "Move down", disabled: i === n - 1, onclick: () => { move(post.body, i, i + 1); restructure(); } }, "↓"),
         el("button", { class: "icon-btn", type: "button", title: "Remove block", onclick: () => {
@@ -564,6 +610,13 @@
       ),
       el("div", { class: "block__body" }, body),
     );
+    return node;
+  }
+
+  let draggedBlock = null;
+  function clearBlockMarks() {
+    pane.querySelectorAll(".block.drop-before, .block.drop-after")
+      .forEach((n) => n.classList.remove("drop-before", "drop-after"));
   }
 
   function addRow(post) {

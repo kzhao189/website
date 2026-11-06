@@ -330,7 +330,25 @@ input[type="range"] { accent-color: var(--accent); }
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
-.block__bar span { flex: 1; }
+.block__bar > span { flex: 1; }
+.block__bar { cursor: grab; }
+.block__bar .icon-btn { cursor: pointer; }
+.block__grip { margin-right: 8px; letter-spacing: -0.1em; }
+.block { position: relative; }
+.block.is-dragging { opacity: 0.4; }
+.block.drop-before::before,
+.block.drop-after::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--accent);
+  pointer-events: none;
+}
+.block.drop-before::before { top: -7px; }
+.block.drop-after::after { bottom: -7px; }
 .block__body { display: flex; flex-direction: column; gap: 8px; padding: 12px; }
 .block--heading .input { font-family: var(--display); font-size: 22px; }
 .color-input { width: 36px; height: 32px; padding: 2px; border: 1px solid var(--line); border-radius: 6px; background: none; cursor: pointer; }

@@ -209,7 +209,7 @@ a { color: inherit; }
   font-weight: 400;
   /* One line; sized by width and height */
   white-space: nowrap;
-  font-size: clamp(1.9rem, min(5.6vw, 5.6svh), 5.6rem);
+  font-size: clamp(2.6rem, min(8vw, 8svh), 8rem);
   line-height: 0.86;
   letter-spacing: -0.02em;
 }
@@ -278,7 +278,7 @@ a { color: inherit; }
 .gallery {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(16px, 2vw, 28px);
+  gap: clamp(8px, 1vw, 14px);
 }
 .gallery .tile[hidden] { display: none; }
 .gallery__empty { color: var(--muted); }
@@ -518,7 +518,7 @@ body.page > .site-footer { margin-top: auto; }
   margin: 0 0 1.25rem;
   font-family: var(--display);
   font-weight: 400;
-  /* Same size as the "Katie Zhao" title on the home page (.intro__name) */
+  /* Was the same size as the home page name (.intro__name), which is now larger */
   font-size: clamp(1.9rem, min(5.6vw, 5.6svh), 5.6rem);
   line-height: 0.86;
   letter-spacing: -0.02em;

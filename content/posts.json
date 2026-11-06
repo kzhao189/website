@@ -107,7 +107,7 @@
         {
           "type": "video",
           "src": "media/snaptrap-video-d4fd73.mp4",
-          "caption": ""
+          "caption": "Gameplay"
         },
         {
           "type": "image",
@@ -119,7 +119,7 @@
           "type": "image",
           "src": "media/snaptrap-04.jpg",
           "alt": "Snaptrap work in progress",
-          "caption": ""
+          "caption": "Building the pulley system"
         },
         {
           "type": "image",
@@ -135,12 +135,12 @@
         {
           "type": "image",
           "src": "media/img_8360.jpg",
-          "caption": ""
+          "caption": "Nectar shapes for players to grab"
         },
         {
           "type": "image",
           "src": "media/frame-6.jpg",
-          "caption": ""
+          "caption": "CAD + 3D printing file"
         },
         {
           "type": "divider"

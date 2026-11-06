@@ -84,7 +84,7 @@ window.PROJECTS = [
       },
       {
         "type": "text",
-        "text": "Material choice was important for a game with high player traffic - the faux pink alligator leather made it easy to wipe down. To keep players' limbs intact, I added pool noodle padding on the edges and increased the height of the hinge. Our pincers were also printed with an iridescent, beetle-shell like filament.\n\nFlex sensors (the trigger hairs) detect bending and spring back when crumpled.\n\nThe entire installation can be broken down into a large suitcase, and the pink pleather can be peeled back easily to debug flex sensors and their wiring."
+        "text": "Material choice was important for a game with high player traffic - the faux pink alligator leather made it easy to wipe down. To keep players' limbs intact, I added pool noodle padding on the edges and increased the height of the hinge. Our pincers were also printed with an iridescent, beetle-shell like filament.\n\nFlex sensors (the trigger hairs) detect bending and spring back when crumpled.\n\nThe entire installation can be broken down into a large suitcase, and the pink pleather can be peeled back easily to debug flex sensors and their wiring. Setup instructions [here](https://docs.google.com/document/d/1hP6WB1mIvO7YybpdRGfGz6gP3lPJUYIMyFVpNrZhRHg/edit?tab=t.0)."
       },
       {
         "type": "image",

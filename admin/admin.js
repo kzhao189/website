@@ -279,7 +279,29 @@
       value: obj[key] ?? "",
       ...props,
       oninput: (e) => { obj[key] = e.target.value; onInput?.(e.target.value); changed(); },
+      // Ctrl/Cmd+K in a text area turns the selection into [text](url).
+      onkeydown: props.rows ? (e) => {
+        if (!(e.ctrlKey || e.metaKey) || e.key.toLowerCase() !== "k") return;
+        e.preventDefault();
+        insertLink(e.target);
+      } : undefined,
     });
+  }
+
+  function insertLink(area) {
+    const { selectionStart: s, selectionEnd: t, value } = area;
+    const url = prompt("Link to (web address, or a page on this site):", "https://");
+    if (!url || url === "https://") return area.focus();
+    const label = value.slice(s, t) || "link text";
+    area.focus();
+    area.setSelectionRange(s, t);
+    // execCommand keeps the edit on the undo stack; fall back if it isn't supported.
+    if (!document.execCommand("insertText", false, `[${label}](${url.trim()})`)) {
+      area.setRangeText(`[${label}](${url.trim()})`, s, t, "end");
+      area.dispatchEvent(new Event("input", { bubbles: true }));
+    }
+    // Leave the label selected so it can be typed over when nothing was selected.
+    area.setSelectionRange(s + 1, s + 1 + label.length);
   }
 
   // A click-or-drop target for one media file. `accept` is "image" or "video".
@@ -462,7 +484,7 @@
       case "textimage":
         body = [
           el("div", { class: "split-edit" },
-            textInput(b, "text", { rows: 8, placeholder: "Write here. Leave a blank line between paragraphs. **bold**, *italic*" }),
+            textInput(b, "text", { rows: 8, placeholder: "Write here. Leave a blank line between paragraphs. **bold**, *italic*, [link](https://…) — Ctrl+K" }),
             mediaDrop({ value: b.src, accept: "image", empty: "Drop the image for the right side, or click to choose", onChange: (src) => set({ src }) }),
           ),
           el("div", { class: "grid" },
@@ -547,7 +569,7 @@
         break;
       }
       default:
-        body = [textInput(b, "text", { rows: 6, placeholder: "Write here. Leave a blank line between paragraphs. **bold**, *italic*" })];
+        body = [textInput(b, "text", { rows: 6, placeholder: "Write here. Leave a blank line between paragraphs. **bold**, *italic*, [link](https://…) — Ctrl+K" })];
     }
 
     // Drag a block by its bar to reorder. The block only becomes draggable while
@@ -784,7 +806,7 @@
         el("h3", {}, "Project description"),
         el("p", { class: "layout-help", style: "margin: -6px 0 12px" },
           "Shown under the title on the post page, left of Quick info."),
-        textInput(post, "intro", { rows: 4, placeholder: "A short paragraph about the project (optional). **bold**, *italic*" }),
+        textInput(post, "intro", { rows: 4, placeholder: "A short paragraph about the project (optional). **bold**, *italic*, [link](https://…) — Ctrl+K" }),
       ),
 
       el("section", { class: "card" },
@@ -1009,7 +1031,7 @@
         el("div", { class: "grid" },
           el("div", { class: "span-2" }, field("Heading", textInput(a, "title", { placeholder: "No heading" }),
             "Optional. Leave blank to hide the heading")),
-          el("div", { class: "span-2" }, field("Bio", textInput(a, "bio", { rows: 8, placeholder: "Write here. Leave a blank line between paragraphs. **bold**, *italic*" }),
+          el("div", { class: "span-2" }, field("Bio", textInput(a, "bio", { rows: 8, placeholder: "Write here. Leave a blank line between paragraphs. **bold**, *italic*, [link](https://…) — Ctrl+K" }),
             "Start lines with “- ” for a bullet list. Extra blank lines add space")),
         ),
       ),

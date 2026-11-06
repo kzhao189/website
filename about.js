@@ -11,24 +11,40 @@
     return n;
   };
 
-  // Inline formatting, same rules as main.js: **bold**, *italic* / _italic_, ***both***.
-  const INLINE = /\*\*\*(?!\s)(.+?)(?<!\s)\*\*\*|\*\*(?!\s)(.+?)(?<!\s)\*\*(?!\*)|\*(?!\s)(.+?)(?<!\s)\*|\b_(?!\s)(.+?)(?<!\s)_\b/g;
+  // Inline formatting, same rules as main.js: [link text](url), **bold**, *italic* / _italic_, ***both***.
+  const INLINE = /\[([^\]\n]+)\]\(([^)\s]+)\)|\*\*\*(?!\s)(.+?)(?<!\s)\*\*\*|\*\*(?!\s)(.+?)(?<!\s)\*\*(?!\*)|\*(?!\s)(.+?)(?<!\s)\*|\b_(?!\s)(.+?)(?<!\s)_\b/g;
+  // Only web, mail and on-site links; anything else (e.g. "javascript:") stays plain text.
+  const SAFE_HREF = /^(https?:\/\/|mailto:|\/|#|\.{0,2}\/?[\w-]+(\.html)?([#?].*)?$)/i;
+  function link(label, href) {
+    if (/^www\./i.test(href)) href = `https://${href}`;
+    const a = h("a");
+    a.href = href;
+    // Other sites open in a new tab; pages on this site open in place.
+    if (/^https?:\/\//i.test(href) && new URL(href).host !== location.host) {
+      a.target = "_blank";
+      a.rel = "noopener";
+    }
+    a.append(...inline(label));
+    return a;
+  }
   function inline(text) {
     const out = [];
     let last = 0;
     for (const m of text.matchAll(INLINE)) {
       if (m.index > last) out.push(text.slice(last, m.index));
       if (m[1] != null) {
+        out.push(SAFE_HREF.test(m[2]) || /^www\./i.test(m[2]) ? link(m[1], m[2]) : m[0]);
+      } else if (m[3] != null) {
         const b = h("strong");
-        b.append(h("em", null, m[1]));
+        b.append(h("em", null, m[3]));
         out.push(b);
-      } else if (m[2] != null) {
+      } else if (m[4] != null) {
         const b = h("strong");
-        b.append(...inline(m[2]));
+        b.append(...inline(m[4]));
         out.push(b);
       } else {
         const i = h("em");
-        i.append(...inline(m[3] ?? m[4]));
+        i.append(...inline(m[5] ?? m[6]));
         out.push(i);
       }
       last = m.index + m[0].length;

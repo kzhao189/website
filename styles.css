@@ -291,12 +291,6 @@ a { color: inherit; }
   display: block;
   text-decoration: none;
 }
-/* Soft shadow under each tile; drop-shadow (not box-shadow) so it follows
-   the masked dog-ear corner */
-.gallery .tile {
-  filter: drop-shadow(0 4px 4px rgb(0 0 0 / 0.4));
-}
-
 /* Shared media box: holds an <img> or a placeholder gradient */
 .media {
   position: relative;
@@ -487,7 +481,6 @@ body.page > .site-footer { margin-top: auto; }
   /* Down to the top of the letters in the heading, not its line box */
   margin: calc(clamp(1.9rem, min(5.6vw, 5.6svh), 5.6rem) * 0.06) 0 0;
   overflow: hidden;
-  /* Same soft shadow as the home page tiles */
   box-shadow: 0 4px 4px rgb(0 0 0 / 0.4);
   background: color-mix(in srgb, var(--cyan-deep) 70%, transparent);
 }

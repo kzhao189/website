@@ -389,26 +389,42 @@
     return fig;
   }
 
-  // Inline formatting: **bold**, *italic* / _italic_, ***both***.
+  // Inline formatting: [link text](url), **bold**, *italic* / _italic_, ***both***.
   // Builds nodes rather than HTML so post text is never parsed as markup.
   // Markers can't sit next to whitespace on their inner side, so "2 * 3" stays literal.
-  const INLINE = /\*\*\*(?!\s)(.+?)(?<!\s)\*\*\*|\*\*(?!\s)(.+?)(?<!\s)\*\*(?!\*)|\*(?!\s)(.+?)(?<!\s)\*|\b_(?!\s)(.+?)(?<!\s)_\b/g;
+  const INLINE = /\[([^\]\n]+)\]\(([^)\s]+)\)|\*\*\*(?!\s)(.+?)(?<!\s)\*\*\*|\*\*(?!\s)(.+?)(?<!\s)\*\*(?!\*)|\*(?!\s)(.+?)(?<!\s)\*|\b_(?!\s)(.+?)(?<!\s)_\b/g;
+  // Only web, mail and on-site links; anything else (e.g. "javascript:") stays plain text.
+  const SAFE_HREF = /^(https?:\/\/|mailto:|\/|#|\.{0,2}\/?[\w-]+(\.html)?([#?].*)?$)/i;
+  function link(label, href) {
+    if (/^www\./i.test(href)) href = `https://${href}`;
+    const a = h("a");
+    a.href = href;
+    // Other sites open in a new tab; pages on this site open in place.
+    if (/^https?:\/\//i.test(href) && new URL(href).host !== location.host) {
+      a.target = "_blank";
+      a.rel = "noopener";
+    }
+    a.append(...inline(label));
+    return a;
+  }
   function inline(text) {
     const out = [];
     let last = 0;
     for (const m of text.matchAll(INLINE)) {
       if (m.index > last) out.push(text.slice(last, m.index));
       if (m[1] != null) {
+        out.push(SAFE_HREF.test(m[2]) || /^www\./i.test(m[2]) ? link(m[1], m[2]) : m[0]);
+      } else if (m[3] != null) {
         const b = h("strong");
-        b.append(h("em", null, m[1]));
+        b.append(h("em", null, m[3]));
         out.push(b);
-      } else if (m[2] != null) {
+      } else if (m[4] != null) {
         const b = h("strong");
-        b.append(...inline(m[2]));
+        b.append(...inline(m[4]));
         out.push(b);
       } else {
         const i = h("em");
-        i.append(...inline(m[3] ?? m[4]));
+        i.append(...inline(m[5] ?? m[6]));
         out.push(i);
       }
       last = m.index + m[0].length;
@@ -721,7 +737,7 @@
   }
 
   // Animate a clone of `source` from rect `from` to rect `to`. The card's
-  // caption, shadow and (once folded) dog-ear ride along, whole at the
+  // caption and (once folded) dog-ear ride along, whole at the
   // card's end and gone at the project's, so neither end pops or re-fades.
   function fly(source, from, to, card, closing) {
     const flyer = h("div", "flyer");
@@ -751,7 +767,6 @@
       transform: `translate(${r.left}px, ${r.top}px)`,
       width: `${r.width}px`,
       height: `${r.height}px`,
-      filter: `drop-shadow(0 4px 4px rgb(0 0 0 / ${0.4 * k}))`,
       "--ear-k": k,
     });
     const timing = { duration: duration(), easing: EASE, fill: "forwards" };

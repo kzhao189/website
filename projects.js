@@ -123,6 +123,16 @@ window.PROJECTS = [
       },
       {
         "type": "image",
+        "src": "media/img_8360.jpg",
+        "caption": "Nectar shapes for players to grab"
+      },
+      {
+        "type": "image",
+        "src": "media/frame-6.jpg",
+        "caption": "CAD + 3D printing file"
+      },
+      {
+        "type": "image",
         "src": "media/snaptrap-05.jpg",
         "alt": "Snaptrap work in progress",
         "caption": ""
@@ -131,16 +141,6 @@ window.PROJECTS = [
         "type": "video",
         "src": "media/snaptrap-video-5e6608.mp4",
         "caption": ""
-      },
-      {
-        "type": "image",
-        "src": "media/img_8360.jpg",
-        "caption": "Nectar shapes for players to grab"
-      },
-      {
-        "type": "image",
-        "src": "media/frame-6.jpg",
-        "caption": "CAD + 3D printing file"
       },
       {
         "type": "divider"

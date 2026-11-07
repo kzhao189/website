@@ -82,9 +82,8 @@ body:has(> .work, > .about) > :is(.work, .site-footer) {
 .card__cap {
   background: linear-gradient(to top, color-mix(in srgb, var(--cyan-deep) 95%, transparent), color-mix(in srgb, var(--cyan-deep) 50%, transparent) 55%, transparent);
 }
-/* The folded corner shows the paper's unprinted back */
-.dog-ear__crease { stop-color: color-mix(in srgb, #d9d6cc 82%, var(--cyan)); }
-.dog-ear__tip { stop-color: color-mix(in srgb, var(--paper-white) 88%, var(--cyan)); }
+/* The folded corner shows a light blue back */
+.dog-ear__paper { fill: hsl(199 80% 82%); }
 .chip + .chip::before { border-left-color: var(--line); }
 ::selection { background: var(--paper-white); color: var(--cyan-deep); }
 

@@ -168,8 +168,8 @@
     let seed = 0;
     for (const c of slug) seed = (seed * 31 + c.charCodeAt(0)) >>> 0;
     const rand = () => ((seed = (seed * 1664525 + 1013904223) >>> 0) / 2 ** 32);
-    const w = Math.round(68 * (0.8 + rand() * 0.45));
-    const hgt = Math.round(68 * (0.8 + rand() * 0.45));
+    const w = Math.round(44 * (0.8 + rand() * 0.45));
+    const hgt = Math.round(44 * (0.8 + rand() * 0.45));
 
     const add = (a, b, k = 1) => [a[0] + b[0] * k, a[1] + b[1] * k];
     const f = (pt) => `${pt[0].toFixed(1)},${pt[1].toFixed(1)}`;
@@ -214,13 +214,14 @@
         <filter id="${id}-shadow" x="-50%" y="-50%" width="200%" height="200%">
           <feDropShadow dx="-2" dy="3" stdDeviation="2.5" flood-color="#000" flood-opacity="0.3"/>
         </filter>
-        <linearGradient id="${id}-paper" gradientUnits="userSpaceOnUse"
-          x1="${M[0].toFixed(1)}" y1="${M[1].toFixed(1)}" x2="${P[0].toFixed(1)}" y2="${P[1].toFixed(1)}">
-          <stop offset="0" class="dog-ear__crease"/>
-          <stop offset="1" class="dog-ear__tip"/>
-        </linearGradient>
+        <filter id="${id}-grain" x="0" y="0" width="100%" height="100%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" seed="${seed % 97}" result="noise"/>
+          <feColorMatrix in="noise" values="0 0 0 0 0  0 0 0 0 0.1  0 0 0 0 0.2  0 0 0 -1.4 0.9" result="tooth"/>
+          <feComposite in="tooth" in2="SourceAlpha" operator="in"/>
+        </filter>
       </defs>
-      <path d="${flap}" fill="url(#${id}-paper)" filter="url(#${id}-shadow)"/>`;
+      <path class="dog-ear__paper" d="${flap}" filter="url(#${id}-shadow)"/>
+      <path d="${flap}" filter="url(#${id}-grain)" opacity="0.14"/>`;
 
     // Mask for a box around the corner (bw x bh, anchored top-right): the
     // page minus the folded-away corner, with the edges easing in toward the

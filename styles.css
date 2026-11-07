@@ -373,8 +373,7 @@ a { color: inherit; }
     var(--ear-mask) right bottom / var(--ew) calc(100% - var(--eh) + 1px) no-repeat,
     var(--ear-corner) right top / var(--ew) var(--eh) no-repeat;
 }
-.dog-ear__crease { stop-color: color-mix(in srgb, var(--fg) 18%, var(--sheet)); }
-.dog-ear__tip { stop-color: color-mix(in srgb, var(--fg) 34%, var(--sheet)); }
+.dog-ear__paper { fill: color-mix(in srgb, var(--fg) 26%, var(--sheet)); }
 
 .card__title {
   display: block;

@@ -78,6 +78,26 @@ body:has(> .work, > .about) > :is(.work, .site-footer) {
     color-mix(in srgb, var(--cyan-deep) 80%, transparent);
   background-attachment: fixed;
 }
+/* About: clear at the top like the home page; the frosted paper fades in
+   as the page scrolls (about.js sets --bar-o) */
+.page-bar--fade {
+  background: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+.page-bar--fade::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    var(--paper-texture),
+    color-mix(in srgb, var(--cyan-deep) 80%, transparent);
+  background-attachment: fixed;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  opacity: var(--bar-o, 0);
+}
 .media { background: var(--cyan-deep); }
 .card__cap {
   background: linear-gradient(to top, color-mix(in srgb, var(--cyan-deep) 95%, transparent), color-mix(in srgb, var(--cyan-deep) 50%, transparent) 55%, transparent);

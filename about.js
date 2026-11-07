@@ -1,3 +1,32 @@
+// Top bar, like the home page: clear at the top with Work / About sitting a
+// little way down; on scroll they rise into the bar as it fades in.
+(() => {
+  const bar = document.getElementById("bar");
+  if (!bar) return;
+  const nav = bar.querySelector(".site-nav");
+  const clamp = (v) => Math.min(1, Math.max(0, v));
+  const smooth = (t) => t * t * (3 - 2 * t);
+  let navY = 0, dist = 80;
+  const measure = () => {
+    // Same offset as main.js: the name slot's top on the home page is
+    // max(bar + 12px, 12svh) (see .intro padding in styles.css).
+    const h = bar.offsetHeight;
+    const slotTop = Math.max(h + 12, innerHeight * 0.12);
+    navY = Math.max(0, Math.min(innerHeight * 0.12, slotTop - 12) - h / 2);
+    dist = Math.max(80, navY * 2);
+    update();
+  };
+  const update = () => {
+    const e = smooth(clamp(scrollY / dist));
+    if (nav) nav.style.transform = `translateY(${navY * (1 - e)}px)`;
+    const b = clamp((e - 0.55) / 0.4);
+    bar.style.setProperty("--bar-o", String(smooth(b)));
+  };
+  measure();
+  addEventListener("scroll", update, { passive: true });
+  addEventListener("resize", measure);
+})();
+
 // Fills About.html from window.ABOUT (set in projects.js by the editor).
 // Without it, the page keeps the text written in the HTML.
 (() => {

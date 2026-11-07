@@ -354,7 +354,22 @@
         },
         {
           "type": "text",
-          "text": "I concepted and created diegetic layouts, assets, and effects based on 1980s style interfaces and IP guidelines.  Interfaces had to integrate with the rest of the world - no HUDs and fewer floating displays that would break immersion."
+          "text": "I concepted and created diegetic layouts, assets, and effects based on 1980s style interfaces and IP guidelines. Interfaces had to integrate with the rest of the world to not break immersion.\n\nI designed a display on the back of the glove to walk players through an in-universe tutorial."
+        },
+        {
+          "type": "video",
+          "src": "media/glove-ui-1.mp4",
+          "caption": "Glove UI"
+        },
+        {
+          "type": "video",
+          "src": "media/glove-ui-2.mp4",
+          "caption": "Calibration"
+        },
+        {
+          "type": "video",
+          "src": "media/tutorial-popup.mp4",
+          "caption": "World-space tutorial for more complex mechanics"
         },
         {
           "type": "divider"
@@ -365,7 +380,7 @@
         },
         {
           "type": "text",
-          "text": "I had a great time working within the constraints of 1980s tech and GUI design trends (I now know an odd amount about segmented displays!). \nDiegetic UI made for a rewarding task to design clear and engaging interfaces that worked with - and not just \"on top of\" - the environment and surroundings.\n*(UI pics coming)*"
+          "text": "I had a great time working within the constraints of Soviet-era tech and GUI design trends (I now know an odd amount about segmented displays!). \nDiegetic UI made for a rewarding task to design clear and engaging interfaces that worked with - and not just \"on top of\" - the environment and surroundings."
         }
       ],
       "info": [

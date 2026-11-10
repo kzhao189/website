@@ -344,11 +344,6 @@
       "draft": false,
       "body": [
         {
-          "type": "video",
-          "src": "https://www.youtube.com/watch?v=7JkE6vedUD8",
-          "caption": "Trailer"
-        },
-        {
           "type": "heading",
           "text": "UI from the Past"
         },
@@ -364,12 +359,41 @@
         {
           "type": "video",
           "src": "media/glove-ui-2.mp4",
-          "caption": "Calibration"
+          "caption": "Calibration tutorial step"
+        },
+        {
+          "type": "text",
+          "text": "As a handtracking-only game, players had to learn various gestures for opening portals and using telekinesis. "
         },
         {
           "type": "video",
           "src": "media/tutorial-popup.mp4",
           "caption": "World-space tutorial for more complex mechanics"
+        },
+        {
+          "type": "heading",
+          "text": "Concepts"
+        },
+        {
+          "type": "gallery",
+          "items": [
+            {
+              "src": "media/mr-central-_3---mr-glove-1-1-2.png",
+              "caption": "",
+              "alt": ""
+            },
+            {
+              "src": "media/image-15.png",
+              "caption": "",
+              "alt": ""
+            },
+            {
+              "src": "media/image-16.png",
+              "caption": "",
+              "alt": ""
+            }
+          ],
+          "columns": 3
         },
         {
           "type": "divider"
@@ -386,14 +410,14 @@
       "info": [
         {
           "label": "Role",
-          "value": "UX/I"
+          "value": "UX/I, Level design"
         },
         {
           "label": "Tools",
           "value": "Unity, Figma, Photoshop"
         }
       ],
-      "intro": "Explore unknown realities as Vecna in this adventure-horror game based on the Netflix show.",
+      "intro": "Explore unknown realities as Vecna in this adventure-horror game based on the Netflix show. I worked primarily on the mixed-reality minigames!",
       "link": "https://www.meta.com/experiences/stranger-things-vr/7803243026376133/",
       "linkLabel": "Play"
     },
@@ -489,7 +513,7 @@
   },
   "about": {
     "title": "About",
-    "bio": "LA based interaction designer of digital and physical experiences. My background is in UI design but I've been expanding into the tangible domain with alternative controller games. \n\nWhen I'm not behind a screen, I'm probably in nature or organizing elaborate events.\n\n\n**Education:**\nBFA in Interactive Media and Game Design (University of Southern California)\n\n\n**Fun facts:**\n- native plant enthusiast\n- getting into cyanotypes recently\n- 27/63 national parks visited\n",
+    "bio": "LA based interaction designer of digital and physical experiences. My background is in UI design but I've been expanding into the tangible domain with alternative controller games. \n\nWhen I'm not behind a screen, I'm probably in nature or organizing elaborate events.\n\n\n**Education:**\nBFA in Interactive Media and Game Design (University of Southern California)\n\n\n**Fun facts:**\n- native plant enthusiast\n- no internal monologue\n- 27/64 national parks visited\n",
     "links": [
       {
         "label": "LinkedIn",
